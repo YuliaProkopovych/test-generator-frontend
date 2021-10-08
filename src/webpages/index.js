@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Home from './home';
 import User from './user';
+import config from '../config';
 
 
 const Webpages = () => {
