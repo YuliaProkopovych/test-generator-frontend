@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect}  from 'react';
+import config from '../config';
 
-const User = () => {
-  return (
-    <div>
-        <h1>User Details</h1>
-    </div>
-  );
+const User = props => {
+  var id = props.match.params.id;
+
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+      fetch(config.apiURL + '\\admins\\' + id)
+          .then(res => res.json())
+          .then(
+              (data) => {
+                  console.log(data);
+                  setUser(data);
+                  setIsLoaded(true);
+              },
+              (error) => {
+                  setIsLoaded(true);
+                  setError(error);
+              }
+          )
+  }, []);
+
+  if (error) {
+      return <div>Error: {error.message}</div>;
+  }
+  if (!isLoaded) {
+      return <div>Loading...</div>;
+  }
+
+  if (user) {
+      return (
+          <div>
+              <h1>{user.name}</h1>
+              <div>
+                  Email: {user.email}
+              </div>
+              <div>
+                  Phone: {user.phone}
+              </div>
+              <div>
+                  Website: {user.website}
+              </div>            </div>        );
+  }
 }
 
 export default User;

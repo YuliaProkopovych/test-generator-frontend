@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from 'react';
+import { Link } from 'react-router-dom';
 import config from '../config';
 
 const Home = () => {
@@ -28,8 +29,8 @@ const Home = () => {
       return (
           <ul>
               {users.map(user => (
-              <li key={user.id}>
-                  {user.email}
+              <li>
+                  <Link to={`user/${user.id}`}>{user.email}</Link>
               </li>
               ))}
           </ul>
