@@ -1,12 +1,18 @@
 import React, { useState, useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import config from '../config';
+import useToken from '../hooks/useToken';
+
+import Login from '../components/login'
 
 const Home = () => {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [users, setUsers] = useState([]);
+
+  const { token, setToken } = useToken();
+
   useEffect(() => {
       fetch(config.apiURL + '\\admins')
           .then(res => res.json())
@@ -26,7 +32,10 @@ const Home = () => {
   } else if (!isLoaded) {
       return <div>Loading...</div>;
   } else {
+    console.log(token);
       return (
+        <div>
+          {token === null && <Login setToken={setToken}></Login>}
           <ul>
               {users.map(user => (
               <li>
@@ -34,6 +43,7 @@ const Home = () => {
               </li>
               ))}
           </ul>
+        </div>
       );
   }
 }
