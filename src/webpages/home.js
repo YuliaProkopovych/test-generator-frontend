@@ -4,6 +4,7 @@ import config from '../config';
 import useToken from '../hooks/useToken';
 
 import Login from '../components/login'
+import Register from '../components/register'
 
 const Home = () => {
 
@@ -12,6 +13,8 @@ const Home = () => {
   const [users, setUsers] = useState([]);
 
   const { token, setToken } = useToken();
+
+  const unauthorizedUserComponent = <div><Login setToken={setToken}/><Register/></div>;
 
   useEffect(() => {
       fetch(config.apiURL + '\\admins')
@@ -35,7 +38,7 @@ const Home = () => {
     console.log(token);
       return (
         <div>
-          {token === null && <Login setToken={setToken}></Login>}
+          {token === null && unauthorizedUserComponent}
           <ul>
               {users.map(user => (
               <li>
