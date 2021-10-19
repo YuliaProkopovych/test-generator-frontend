@@ -15,7 +15,7 @@ const Register = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: username, email: email, password: password })
     };
-    fetch(config.apiURL + '/admins/register', requestOptions);
+    fetch(config.apiURL + '/Users/register', requestOptions);
   }
 
   const changeEmail = (event) => {

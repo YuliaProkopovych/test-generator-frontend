@@ -15,7 +15,7 @@ const Login = ({ setToken }) =>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, password: password })
     };
-    fetch(config.apiURL + '/admins/login', requestOptions)
+    fetch(config.apiURL + '/users/login', requestOptions)
       .then(response => response.json())
       .then(data => setToken(data.token));
   }
