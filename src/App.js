@@ -1,5 +1,7 @@
 import React from 'react';
 import Webpages from './webpages';
+import './stylesheets/app.scss'
+
 
 
 function App() {

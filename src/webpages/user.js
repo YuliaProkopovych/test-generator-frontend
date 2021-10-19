@@ -9,19 +9,18 @@ const User = props => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-      fetch(config.apiURL + '\\admins\\' + id)
-          .then(res => res.json())
-          .then(
-              (data) => {
-                  console.log(data);
-                  setUser(data);
-                  setIsLoaded(true);
-              },
-              (error) => {
-                  setIsLoaded(true);
-                  setError(error);
-              }
-          )
+    fetch(config.apiURL + '\\users\\' + id)
+      .then(res => res.json())
+      .then(
+        (data) => {
+          setUser(data);
+          setIsLoaded(true);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+       }
+    )
   }, []);
 
   if (error) {
@@ -39,11 +38,13 @@ const User = props => {
                   Email: {user.email}
               </div>
               <div>
-                  Phone: {user.phone}
+                  Tests: {user.tests.map(test => {return test.id})}
               </div>
               <div>
                   Website: {user.website}
-              </div>            </div>        );
+              </div>
+          </div>
+        );
   }
 }
 

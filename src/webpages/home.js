@@ -5,6 +5,7 @@ import useToken from '../hooks/useToken';
 
 import Login from '../components/login'
 import Register from '../components/register'
+import CreateTest from './new-test';
 
 const Home = () => {
 
@@ -17,7 +18,7 @@ const Home = () => {
   const unauthorizedUserComponent = <div><Login setToken={setToken}/><Register/></div>;
 
   useEffect(() => {
-      fetch(config.apiURL + '\\admins')
+      fetch(config.apiURL + '\\users')
           .then(res => res.json())
           .then(
               (data) => {
@@ -35,17 +36,23 @@ const Home = () => {
   } else if (!isLoaded) {
       return <div>Loading...</div>;
   } else {
-    console.log(token);
       return (
         <div>
+          <h1>Test Generator</h1>
+          <h3>Simple way to create tests!</h3>
+          <div class="search"></div>
           {token === null && unauthorizedUserComponent}
-          <ul>
-              {users.map(user => (
-              <li>
-                  <Link to={`user/${user.id}`}>{user.email}</Link>
-              </li>
-              ))}
-          </ul>
+          <div class="popular">
+            <p>Most popular</p>
+              <ul>
+                  {users.map(user => (
+                  <li>
+                      <Link to={`user/${user.id}`}>{user.email}</Link>
+                  </li>
+                  ))}
+              </ul>
+              <CreateTest/>
+          </div>
         </div>
       );
   }
